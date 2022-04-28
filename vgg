@@ -1,0 +1,89 @@
+import keras
+from keras.callbacks import ModelCheckpoint, EarlyStopping
+from keras.layers import Dense, Conv2D, MaxPool2D, Flatten
+from keras.models import Sequential
+from keras.preprocessing.image import ImageDataGenerator
+
+"""
+VGG-16
+https://www.mygreatlearning.com/blog/introduction-to-vgg16/
+Pre-trained model for images
+
+Teine variant mida proovida
+Sarnane mudel nagu main, aga VGG on lihtsalt ettetreenitud mudel millega oleks võimalik saada
+täpsemaid tulemusi, selle arvelt võtab rohkem jõudlsut ja kauem aega
+samasugune tensorflow error
+"""
+
+train_dir = r"C:\Users\Henri\Desktop\loputoo\tester_pildid\vgg"
+test_dir = r"C:\Users\Henri\Desktop\loputoo\tester_pildid\testing_data"
+
+# ImageDataGenerator - images labeler, reaalajas andmete sorteertija
+trdata = ImageDataGenerator()
+treening = trdata.flow_from_directory(directory=train_dir, target_size=(224, 224))
+tsdata = ImageDataGenerator()
+testimine = tsdata.flow_from_directory(directory=test_dir, target_size=(224, 224))
+
+# Erinevate kihtide
+# activation relu (rectified linear unit) - negatiivsed väärtused ei anta edasi
+# VGG-16 viitab 16 kihile
+model = Sequential()
+# Blokk 1
+model.add(Conv2D(input_shape=(224, 224, 3), filters=64, kernel_size=(3, 3), padding="same", activation="relu"))
+model.add(Conv2D(filters=64, kernel_size=(3, 3), padding="same", activation="relu"))
+model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+
+# Blckk 2
+model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="same", activation="relu"))
+model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="same", activation="relu"))
+model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+
+# Blokk 3
+model.add(Conv2D(filters=256, kernel_size=(3, 3), padding="same", activation="relu"))
+model.add(Conv2D(filters=256, kernel_size=(3, 3), padding="same", activation="relu"))
+model.add(Conv2D(filters=256, kernel_size=(3, 3), padding="same", activation="relu"))
+model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+
+# Blokk 4
+model.add(Conv2D(filters=512, kernel_size=(3, 3), padding="same", activation="relu"))
+model.add(Conv2D(filters=512, kernel_size=(3, 3), padding="same", activation="relu"))
+model.add(Conv2D(filters=512, kernel_size=(3, 3), padding="same", activation="relu"))
+model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+
+# Blokk 5
+model.add(Conv2D(filters=512, kernel_size=(3, 3), padding="same", activation="relu"))
+model.add(Conv2D(filters=512, kernel_size=(3, 3), padding="same", activation="relu"))
+model.add(Conv2D(filters=512, kernel_size=(3, 3), padding="same", activation="relu"))
+model.add(MaxPool2D(pool_size=(2, 2), strides=(2, 2)))
+
+# Classification
+model.add(Flatten())
+model.add(Dense(units=4096, activation="relu"))
+model.add(Dense(units=4096, activation="relu"))
+model.add(Dense(units=2, activation="softmax"))
+
+# samad parameetrid mis main-is
+model.compile(optimizer="adam", loss=keras.losses.categorical_crossentropy, metrics=['accuracy'])
+
+# Mudeli hetkese info kokkuvõte - iga layeri andmed
+model.summary()
+
+# ajutine vahepealne mudeli treeninginfo
+print("test_loss, test accuracy", model.evaluate(treening, batch_size=10))
+
+# VGG-16 lubab mudeli parandamist kasutades
+# ModelCheckPoint - salvestab mudeli jälgides kindlaid parameetreid
+# EarlyStopping - lõpetab mudeli treenimise kui pole parandust olnud etteantud tsüklite järel (patience=2)
+vahepunkt = ModelCheckpoint("vgg16_1.h5", monitor='val_acc', verbose=1, save_best_only=True, save_weights_only=False, mode='auto', period=1)
+varajane = EarlyStopping(monitor='val_acc', min_delta=0, patience=2, verbose=1, mode='auto')
+hist = model.fit_generator(steps_per_epoch=10,
+                           generator=treening,
+                           validation_data=testimine,
+                           validation_steps=10,
+                           epochs=10,
+                           callbacks=[vahepunkt, varajane])
+
+# TODO sama error
+# Epoch 1/100
+# 2022-04-29 00:14:57.091219: I tensorflow/stream_executor/cuda/cuda_dnn.cc:368] Loaded cuDNN version 8303
+# Process finished with exit code -1073740791 (0xC0000409)
