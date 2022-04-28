@@ -131,7 +131,9 @@ Network Library (oneDNN) to use the following CPU instructions in performance-cr
 enable them in other operations, rebuild TensorFlow with the appropriate compiler flags. 2022-04-27 23:28:57.736123: 
 I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:0 
 with 4634 MB memory:  -> device: 0, name: NVIDIA GeForce GTX 1060 with Max-Q Design, pci bus id: 0000:01:00.0, 
-compute capability: 6.1 Epoch 1/10 2022-04-27 23:29:00.228890: I tensorflow/stream_executor/cuda/cuda_dnn.cc:368] 
+compute capability: 6.1 
+Epoch 1/10:
+I tensorflow/stream_executor/cuda/cuda_dnn.cc:368] 
 Loaded cuDNN version 8303 
 
 Process finished with exit code -1073740791 (0xC0000409)
