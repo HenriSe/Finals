@@ -10,3 +10,8 @@ Idee:
 5. Treenime kolm eraldi mudelit - näod, silmad ja suud
 6. Iga mudel annab oma nö tulemuse, ehk millised pildid on mudeli arvates võlts, millised mitte
 7. Kasutades enamushääletust (3 häält), lõplik otsus, kas pildil on võlts ja päris naeratus
+
+Hetkene probleem:
+Unknown tensorflow error - leiab pidlid, töötleb ära, leiab GPU, koostab mudeli
+Kui aga hakkab mudelit treenima jääb kinni tasemele Epoch 1/10 mingiks hetkeks ja siis programm lõppeb ära Process finished with exit code -1073740791 (0xC0000409)
+Võib olla seotud arvuti iseenda GPU-dega või siis programmide versioonide ühilduvus
