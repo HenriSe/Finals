@@ -1,0 +1,12 @@
+Packages (pip install)
+numpy, opencv-python, keras, tensorflow, pillow (PIL), matplotlib
+
+Idee:
+
+1. Export images from database
+2. Töötleme pilti ja tuvastame näo
+3. Crop nägu ja salvestame jadasse + lisame pildid eraldi kausta
+4. Cropped näo pildi pealt tuvatsame silmad ja suu ning lisame nad eraldi jadadesse + lisame pildid eraldi kausta
+5. Treenime kolm eraldi mudelit - näod, silmad ja suud
+6. Iga mudel annab oma nö tulemuse, ehk millised pildid on mudeli arvates võlts, millised mitte
+7. Kasutades enamushääletust (3 häält), lõplik otsus, kas pildil on võlts ja päris naeratus
