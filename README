@@ -11,31 +11,9 @@ Idee:
 6. Iga mudel annab oma nö tulemuse, ehk millised pildid on mudeli arvates võlts, millised mitte
 7. Kasutades enamushääletust (3 häält), lõplik otsus, kas pildil on võlts ja päris naeratus
 
-Hetkene probleem:
-Unknown tensorflow error - leiab pidlid, töötleb ära, leiab GPU, koostab mudeli
-Kui aga hakkab mudelit treenima jääb kinni tasemele Epoch 1/10 mingiks hetkeks ja siis programm lõppeb ära Process finished with exit code -1073740791 (0xC0000409)
-Võib olla seotud arvuti iseenda GPU-dega või siis programmide versioonide ühilduvus
 
-Hetkene output:
--------------------------------------------------------------------------------------------------------
-python version:  3.9.6 (tags/v3.9.6:db3ff76, Jun 28 2021, 15:26:21) [MSC v.1929 64 bit (AMD64)]
-tensorflow version:  2.8.0
-Keras Version: 2.8.0
-GPU is available
+TODO
+kood viisakaks
+optimeerimist kruttida
 
-train data len:  441 
-X array len: 441 
-Y array len: 441 
-
-I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural 
-Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX AVX2 To 
-enable them in other operations, rebuild TensorFlow with the appropriate compiler flags. 2022-04-27 23:28:57.736123: 
-I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:0 
-with 4634 MB memory:  -> device: 0, name: NVIDIA GeForce GTX 1060 with Max-Q Design, pci bus id: 0000:01:00.0, 
-compute capability: 6.1 
-
-Epoch 1/10:
-I tensorflow/stream_executor/cuda/cuda_dnn.cc:368] 
-Loaded cuDNN version 8303 
-
-Process finished with exit code -1073740791 (0xC0000409)
+vs VGG, SENet, LeNet, AlexNet, Inception (v3/v4), Densenet 121/264, EfficientNet-L2, PNASNET-5
