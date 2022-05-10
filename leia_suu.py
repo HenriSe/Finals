@@ -1,4 +1,5 @@
 import cv2 as cv2
+import numpy as np
 
 mouth_cascade = cv2.CascadeClassifier("venv\Lib\site-packages\cv2\data\haarcascade_smile.xml")
 
@@ -8,11 +9,14 @@ def leia_suu(img):
     # sama ka vimase arvuga, kui see ntks 2, siis mitu kasti, kui see 20 siis üks korrektne
     scaler = 1.9
     suud = mouth_cascade.detectMultiScale(img, scaler, 20)
+
     for (x, y, w, h) in suud:
         cv2.rectangle(img, (x, y), ((x + w), (y + h)), (255, 0, 0), 2)
+        suud = img[y:y + h, x:x + w]  # joonistab ristküliku
+        suud = cv2.resize(suud, (255, 255))
 
     # TODO kui ei leia ühtegi
 
-    cv2.imshow('img', img)
-    cv2.waitKey()
-    return img
+    #cv2.imshow('img', img)
+    #cv2.waitKey()
+    return suud
