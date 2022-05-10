@@ -21,7 +21,7 @@ def build(filepath):
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
 
-model = keras.models.load_model('big_dogcat.model')
+model = keras.models.load_model('.model')
 
 # predictime kõik pildid kasside foldrist, peaks olema ju sama?
 for img in os.listdir(path):
