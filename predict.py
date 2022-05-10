@@ -23,7 +23,6 @@ def build(filepath):
 
 model = keras.models.load_model('.model')
 
-# predictime kõik pildid kasside foldrist, peaks olema ju sama?
 for img in os.listdir(path):
     #print(path + img)
     prediction = model.predict([build(path + "\\" + img)])
