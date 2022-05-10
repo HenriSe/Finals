@@ -8,6 +8,8 @@ face_cascade = cv2.CascadeClassifier("venv\Lib\site-packages\cv2\data\haarcascad
 def leia(img):
     # etteantud fail otsitava leidmiseks läbi mudelite
     näod = face_cascade.detectMultiScale(img, 1.3, 5)
+    
+    # TODO if ei leia, re-test teise skalaarväärtusega (3.0-)
 
     for (x, y, w, h) in näod:
         rgb = (255, 0, 0)
