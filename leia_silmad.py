@@ -10,10 +10,12 @@ def leia_silmad(img):
 
     scaler = 1.5
     silmad = eye_cascade.detectMultiScale(img, scaler, 5)
+
     for (x, y, w, h) in silmad:
         cv2.rectangle(img, (x, y), ((x + w), (y + h)), (255, 0, 0), 2)
+        silmad = img[y:y + h, x:x + w]  # joonistab ristküliku
+        silmad = cv2.resize(silmad, (255, 255))
 
-
-    cv2.imshow('img', img)
-    cv2.waitKey()
-    return img
+    #cv2.imshow('img', img)
+    #cv2.waitKey()
+    return silmad
